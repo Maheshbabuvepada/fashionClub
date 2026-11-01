@@ -1,0 +1,333 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+    <link href="MyStyle.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: white;
+        }
+
+        form {
+            width: 500px;
+            margin: auto;
+        }
+
+        fieldset {
+            border: 2px solid darkred;
+            padding: 10px;
+            border-radius: 20px;
+        }
+
+        legend {
+            color: darkred;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        .error {
+            color: black;
+            font-size: 14px;
+            font-weight: normal;
+        }
+    </style>
+</head>
+
+<body class="body">
+
+  <div class="header">
+        <img src="logo.png" class="logo">
+
+      <div class="title">
+        <h1>FASHION CLUB</h1>
+        <p>Only for mens wear</p>
+      </div>
+    </div>
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+       <button class="nav-link" style="color:#73090A" onclick="window.location='home.html'"><b>Home</b></button>
+    </li>
+    <li class="nav-item dropdown">
+       <button class="nav-link dropdown-toggle" style="color:#73090A"data-bs-toggle="dropdown"><b>Men</b></button>
+
+      <div class="dropdown-menu p-4">
+       <div class="row">
+
+         <div class="col">
+            <h6><b>TOPWEAR</b></h6>
+                <a class="dropdown-item"href="PoloT-shirt.html">Polo T-Shirt</a>
+                <a class="dropdown-item"href="lenin-shirts.html"> Lenin-Shirts</a>
+         </div>
+
+         <div class="col">
+            <h6><b>BOTTOMWEAR</b></h6>
+                <a class="dropdown-item"href="Jeans.html">Jeans</a>
+         </div>
+
+         <div class="col">
+            <h6><b>FOOTWEAR</b></h6>
+                <a class="dropdown-item" href="Footwear.html">Footwear</a>
+                <a class="dropdown-item" href="Sneakers.html">Sneakers </a>
+        </div>
+      </div>
+     </div>
+    </li>
+
+    <li class="nav-item">
+        <button class="nav-link active" style="color:#73090A" onclick="window.location='registration.html'"><b>Registration</b></button>
+    </li>
+   
+     <li class="nav-item">
+        <button class="nav-link" style="color:#73090A" onclick="window.location='Login.html'"><b>Login</b></button>
+    </li>
+
+    <li class="nav-item">
+        <button class="nav-link" style="color:#73090A" onclick="window.location='about.html'"><b>About</b></button>
+    </li>
+
+    <li class="nav-item">
+        <button class="nav-link" style="color:#73090A" onclick="window.location='contact.html'"><b>Contact</b></button>
+    </li>
+</ul><br/><br/>
+
+    <!-- Registration Form -->
+
+    <form id="registrationForm"
+          onsubmit="return validateForm()">
+
+        <fieldset>
+            <legend align="center">Registration Form</legend>
+
+            <label><font color="brown">Firstname :</font></label><br/>
+            <input type="text"id="fn"name="fn">
+            <span id="fnError" class="error"></span><br/><br/>
+
+            <label><font color="brown">Lastname :</font></label><br/>
+            <input type="text"id="ln"name="ln">
+            <span id="lnError" class="error"></span><br/><br/>
+
+            <label><font color="brown">Phone Number :</font></label><br/>
+            <input type="number"id="num"name="num">
+            <span id="numError" class="error"></span><br/><br/>
+
+            <label><font color="brown">Email ID :</font></label><br/>
+            <input type="email"id="mail"name="mail">
+            <span id="mailError" class="error"></span><br/><br/>
+
+            <label><font color="brown">Password :</font></label><br/>
+            <input type="password"id="pwd"name="pwd">
+            <span id="pwdError" class="error"></span><br/><br/>
+
+            <label><font color="brown">Confirm Password :</font></label><br/>
+            <input type="password"id="cpwd"name="cpwd">
+            <span id="cpwdError" class="error"></span><br/><br/>
+
+            <label><font color="brown">Date of Birth :</font></label><br/>
+            <input type="date"id="dob"name="dob">
+            <span id="dobError" class="error"></span><br/><br/>
+
+            <label><font color="brown">Gender :</font></label><br/>
+              <input type="radio" id="male" name="gender" value="Male">
+              <label for="male">Male</label>
+              <input type="radio" id="others" name="gender" value="Others">
+              <label for="others">Others</label>
+            <span id="genderError" class="error"></span><br/><br/>
+
+            <label><font color="brown">Address :</font></label><br/>
+            <input type="text"id="ad" name="ad">
+            <span id="adError" class="error"></span><br/><br/>
+
+            <label><font color="brown">City :</font></label><br/>
+            <input type="text"id="ct"name="ct">
+            <span id="ctError" class="error"></span><br/><br/>
+
+            <label><font color="brown">State :</font></label><br/>
+            <input type="text"id="st"name="st">
+            <span id="stError" class="error"></span><br/><br/>
+
+            <label><font color="brown">Pincode :</font></label><br/>
+            <input type="number"id="pc"name="pc">
+            <span id="pcError" class="error"></span><br/><br/>
+
+            <input type="submit"value="Register">
+
+        </fieldset>
+    </form>
+      
+ <script>
+
+  function validateForm() {
+
+    let valid = true;
+
+    // First Name
+    let firstname = document.getElementById("fn").value.trim();
+
+    if (firstname === "") {
+        document.getElementById("fnError").innerHTML = "Please enter firstname";
+        valid = false;
+    } else {
+        document.getElementById("fnError").innerHTML = "";
+    }
+
+    // Last Name
+    let lastname = document.getElementById("ln").value.trim();
+
+    if (lastname === "") {
+        document.getElementById("lnError").innerHTML = "Please enter lastname";
+        valid = false;
+    } else {
+        document.getElementById("lnError").innerHTML = "";
+    }
+
+
+    // Phone
+    let phone = document.getElementById("num").value;
+
+    if (phone === "") {
+        document.getElementById("numError").innerHTML = "Please enter phone number";
+        valid = false;
+    } else if (phone.length !== 10) {
+        document.getElementById("numError").innerHTML = "Phone number must contain 10 digits";
+        valid = false;
+    } else {
+        document.getElementById("numError").innerHTML = "";
+    }
+
+
+    // Email
+    let email = document.getElementById("mail").value.trim();
+
+    if (email === "") {
+        document.getElementById("mailError").innerHTML = "Please enter email";
+        valid = false;
+    } else {
+        document.getElementById("mailError").innerHTML = "";
+    }
+
+
+    // Password
+    let password = document.getElementById("pwd").value;
+
+    if (password === "") {
+        document.getElementById("pwdError").innerHTML = "Please enter password";
+        valid = false;
+    } else {
+        document.getElementById("pwdError").innerHTML = "";
+    }
+
+
+    // Confirm Password
+    let confirmPassword = document.getElementById("cpwd").value;
+
+    if (confirmPassword === "") {
+        document.getElementById("cpwdError").innerHTML = "Please confirm password";
+        valid = false;
+    } else if (password !== confirmPassword) {
+        document.getElementById("cpwdError").innerHTML = "Passwords do not match";
+        valid = false;
+    } else {
+        document.getElementById("cpwdError").innerHTML = "";
+    }
+
+
+    // Date of Birth
+    let dob = document.getElementById("dob").value;
+
+    if (dob === "") {
+        document.getElementById("dobError").innerHTML = "Please select date of birth";
+        valid = false;
+    } else {
+        document.getElementById("dobError").innerHTML = "";
+    }
+
+
+    // Gender
+    let gender = document.querySelector('input[name="gender"]:checked');
+
+    if (gender === null) {
+        document.getElementById("genderError").innerHTML = "Please select gender";
+        valid = false;
+    } else {
+        document.getElementById("genderError").innerHTML = "";
+    }
+
+
+    // Address
+    let address = document.getElementById("ad").value.trim();
+
+    if (address === "") {
+        document.getElementById("adError").innerHTML = "Please enter address";
+        valid = false;
+    } else {
+        document.getElementById("adError").innerHTML = "";
+    }
+
+
+    // City
+    let city = document.getElementById("ct").value.trim();
+
+    if (city === "") {
+        document.getElementById("ctError").innerHTML = "Please enter city";
+        valid = false;
+    } else {
+        document.getElementById("ctError").innerHTML = "";
+    }
+
+
+    // State
+    let state = document.getElementById("st").value.trim();
+
+    if (state === "") {
+        document.getElementById("stError").innerHTML = "Please enter state";
+        valid = false;
+    } else {
+        document.getElementById("stError").innerHTML = "";
+    }
+
+
+    // Pincode
+    let pincode = document.getElementById("pc").value;
+
+    if (pincode === "") {
+        document.getElementById("pcError").innerHTML = "Please enter pincode";
+        valid = false;
+    } else if (pincode.length !== 6) {
+        document.getElementById("pcError").innerHTML = "Pincode must contain 6 digits";
+        valid = false;
+    } else {
+        document.getElementById("pcError").innerHTML = "";
+    }
+
+
+    // Final result
+    if (valid) {
+        alert("Registration successful!");
+    }
+
+    return false;
+}
+
+</script>
+</body>
+</html>

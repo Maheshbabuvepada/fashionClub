@@ -1,0 +1,196 @@
+
+.marquee {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  color: #8b0000;
+}
+
+.btn {
+  width: 100px;
+  height: 30px;
+  background-color: #4D252B;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  border: solid 2px #4D252B;
+  transition: 0.50s;
+}
+
+.btn:hover {
+  width: 100px;
+  height: 30px;
+  background-color: #334F14;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  border: solid 2px #334F14;
+  transition: 0.50s;
+}
+
+.body {
+  background-image: url("fashion.jpeg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.body1 {
+  background-image: url("fashion1.png");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.body2 {
+  background-image: url("fashion2.jpeg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+/* Heading & Logo Section */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 10px;
+}
+
+.logo {
+  position: absolute;
+  left: 30px;
+  top: 10px;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.title {
+  text-align: center;
+}
+
+.title h1 {
+  margin: 0;
+  color: #73090A;
+  font-size: 40px;
+  font-family: Garamond, serif;
+}
+
+.title p {
+  margin: 5px 0 0;
+  color: #73090A;
+  font-size: 20px;
+  font-family: Garamond, serif;
+}
+
+
+/* Cart Section */
+
+.cart {
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.cart button {
+  background-color: white;
+  border: 1px solid #73090A;
+  color: #73090A;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+
+/* Search */
+
+.search-box {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.search-box input {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #73090A;
+  border-radius: 5px;
+}
+
+.search-box button {
+  padding: 8px 15px;
+  margin-left: 5px;
+  background-color: #73090A;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+
+/* Login Icon */
+
+.login-icon {
+  position: absolute;
+  right: 35px;
+  top: 25px;
+  color: #73090A;
+  font-size: 32px;
+  text-decoration: none;
+}
+
+.login-icon:hover {
+  color: #4D252B;
+}
+
+
+/* About Card */
+
+.about-card {
+  width: 65%;
+  margin: 30px auto;
+  padding: 35px;
+  background: rgba(0, 0, 0, 0.50);
+  border: 1px solid #73090A;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.about-card h3 {
+  color: #73090A;
+  margin-top: 20px;
+}
+
+.about-card p {
+  color: white;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+
+/* Contact Card */
+
+.contact-card {
+  width: 45%;
+  margin: 30px auto;
+  padding: 35px;
+  background: rgba(0, 0, 0, 0.50);
+  border: 1px solid #73090A;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.contact-card h3 {
+  color: #73090A;
+  margin-top: 20px;
+}
+
+.contact-card p {
+  color: white;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
