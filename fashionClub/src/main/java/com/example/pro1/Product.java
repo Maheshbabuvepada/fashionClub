@@ -32,6 +32,8 @@ public class Product {
     private BigDecimal price;
     private String image;
     private Integer stock = 0;
+    @Column(nullable = false)
+    private Boolean isActive = true;
 
     
     public Product(String productName, String category, String brand, String size,

@@ -1,6 +1,8 @@
 
-import React, { useState, useEffect } from "react";
-import { getProducts } from "../Services/productService";
+import React, { useState } from "react";
+import { useCart } from "./CartContext";
+import { Link, useNavigate } from "react-router-dom";
+import "../MyStyle.css";
 
 const images = import.meta.glob("../assets/*", {
   eager: true,
@@ -9,36 +11,39 @@ const images = import.meta.glob("../assets/*", {
 });
 
 function getImage(fileName) {
+  if (!fileName) return "";
+
   const image = Object.entries(images).find(([path]) => {
-    return decodeURIComponent(path.split("/").pop()) === fileName;
+    const assetName = decodeURIComponent(path.split("/").pop());
+
+    return (
+      assetName.trim().toLowerCase() ===
+      fileName.trim().toLowerCase()
+    );
   });
 
-  return image ? image[1] : "";
+  if (image) {
+    return image[1];
+  }
+
+  return `http://localhost:8080/images/${encodeURIComponent(fileName.trim())}`;
 }
 
 function Home() {
   const [search, setSearch] = useState("");
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const { cartItems } = useCart();
+  const navigate = useNavigate();
 
-  // Fetch products from backend
-  useEffect(() => {
-    async function loadProducts() {
-      try {
-        const data = await getProducts();
-        setProducts(data);
-        setError("");
-      } catch (err) {
-        setError("Unable to load products from backend");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
+  const customer = JSON.parse(
+    localStorage.getItem("customer") || "null"
+  );
 
-    loadProducts();
-  }, []);
+  function handleLogout() {
+    localStorage.removeItem("customer");
+    alert("Logout successful!");
+    navigate("/");
+    window.location.reload();
+  }
 
   function searchProduct() {
     if (search.trim() === "") {
@@ -49,34 +54,106 @@ function Home() {
   }
 
   return (
-    <div>
-
-      {/* Logo and Heading */}
-      <div className="header">
+    <div
+      className="home-page"
+      style={{
+        backgroundColor: "#fff",
+        minHeight: "100vh",
+      }}
+    >
+      {/* Logo, Heading and Customer Details */}
+      <div
+        className="header"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
+          width: "100%",
+          minHeight: "110px",
+        }}
+      >
         <img
           src={getImage("logo.png")}
           className="logo"
           alt="Fashion Club Logo"
+          style={{
+            position: "absolute",
+            left: "3%",
+            top: "50%",
+            transform: "translateY(-50%)",
+          }}
         />
 
-        <div className="title">
+        <div
+          className="title"
+          style={{
+            textAlign: "center",
+            margin: "0 auto",
+          }}
+        >
           <h1>FASHION CLUB</h1>
           <p>Only for mens wear</p>
         </div>
 
-        {/* Login Icon */}
-        <a href="/login" className="login-icon" title="Login">
-          <i className="bi bi-person-circle"></i>
-        </a>
+        {/* Customer Login / Name / Logout */}
+        <div
+          className="d-flex align-items-center gap-3"
+          style={{
+            position: "absolute",
+            right: "3%",
+            top: "50%",
+            transform: "translateY(-50%)",
+            flexShrink: 0,
+          }}
+        >
+          {customer ? (
+            <>
+              <span
+                style={{
+                  color: "#73090A",
+                  fontWeight: "bold",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Welcome, {customer.firstName}
+              </span>
+
+              <button
+                onClick={handleLogout}
+                className="btn btn-sm"
+                style={{
+                  backgroundColor: "#4D252B",
+                  color: "white",
+                  width: "auto",
+                  padding: "6px 15px",
+                }}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="login-icon"
+              title="Login"
+            >
+              <i className="bi bi-person-circle"></i>
+            </Link>
+          )}
+        </div>
       </div>
 
       {/* Navigation */}
       <ul className="nav nav-tabs">
-
         <li className="nav-item">
-          <a className="nav-link active" style={{ color: "#73090A" }} href="/">
+          <Link
+            className="nav-link active"
+            style={{ color: "#73090A" }}
+            to="/"
+          >
             <b>Home</b>
-          </a>
+          </Link>
         </li>
 
         <li className="nav-item dropdown">
@@ -90,46 +167,72 @@ function Home() {
 
           <div className="dropdown-menu p-4">
             <div className="row">
-
               <div className="col">
                 <h6><b>TOPWEAR</b></h6>
-                <a className="dropdown-item" href="/polo-tshirt">Polo T-Shirt</a>
-                <a className="dropdown-item" href="/lenin-shirts">Lenin-Shirts</a>
+
+                <Link className="dropdown-item" to="/polo-tshirt">
+                  Polo T-Shirt
+                </Link>
+
+                <Link className="dropdown-item" to="/lenin-shirts">
+                  Lenin-Shirts
+                </Link>
               </div>
 
               <div className="col">
                 <h6><b>BOTTOMWEAR</b></h6>
-                <a className="dropdown-item" href="/jeans">Jeans</a>
+
+                <Link className="dropdown-item" to="/jeans">
+                  Jeans
+                </Link>
               </div>
 
               <div className="col">
                 <h6><b>FOOTWEAR</b></h6>
-                <a className="dropdown-item" href="/footwear">Footwear</a>
-                <a className="dropdown-item" href="/sneakers">Sneakers</a>
-              </div>
 
+                <Link className="dropdown-item" to="/footwear">
+                  Footwear
+                </Link>
+
+                <Link className="dropdown-item" to="/sneakers">
+                  Sneakers
+                </Link>
+              </div>
             </div>
           </div>
         </li>
 
         <li className="nav-item">
-          <a className="nav-link" style={{ color: "#73090A" }} href="/about">
+          <Link
+            className="nav-link"
+            style={{ color: "#73090A" }}
+            to="/about"
+          >
             <b>About</b>
-          </a>
+          </Link>
         </li>
 
         <li className="nav-item">
-          <a className="nav-link" style={{ color: "#73090A" }} href="/contact">
+          <Link
+            className="nav-link"
+            style={{ color: "#73090A" }}
+            to="/contact"
+          >
             <b>Contact</b>
-          </a>
+          </Link>
         </li>
 
         <li className="nav-item">
-          <a className="nav-link" style={{ color: "#73090A" }} href="/cart">
-            <b>Cart 🛒</b>
-          </a>
+          <Link
+            className="nav-link"
+            style={{ color: "#73090A" }}
+            to="/cart"
+          >
+            <b>
+              <i className="bi bi-cart3"></i> Cart ({cartItems.length})
+            </b>
+          </Link>
         </li>
-
       </ul>
 
       {/* Search */}
@@ -141,7 +244,9 @@ function Home() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <button onClick={searchProduct}>Search</button>
+        <button onClick={searchProduct}>
+          Search
+        </button>
       </div>
 
       {/* Welcome Message */}
@@ -159,41 +264,60 @@ function Home() {
       <div id="myslides" className="carousel slide w-100">
 
         <div className="carousel-indicators">
-          <button type="button" data-bs-target="#myslides"data-bs-slide-to="0"className="active"aria-current="true"aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#myslides" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#myslides" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button
+            type="button"
+            data-bs-target="#myslides"
+            data-bs-slide-to="0"
+            className="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+
+          <button
+            type="button"
+            data-bs-target="#myslides"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+
+          <button
+            type="button"
+            data-bs-target="#myslides"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
         </div>
 
         <div className="carousel-inner text-center">
 
           <div className="carousel-item active">
-            <a href="/lenin-shirts">
+            <Link to="/lenin-shirts">
               <img
                 src={getImage("slides-shirts.png")}
                 className="d-block h-50 w-100"
                 alt="Shirts"
               />
-            </a>
+            </Link>
           </div>
 
           <div className="carousel-item">
-            <a href="/jeans">
+            <Link to="/jeans">
               <img
                 src={getImage("slides-jeans.avif")}
                 className="d-block h-50 w-100"
                 alt="Jeans"
               />
-            </a>
+            </Link>
           </div>
 
           <div className="carousel-item">
-            <a href="/sneakers">
+            <Link to="/sneakers">
               <img
                 src={getImage("slides-shoes.avif")}
                 className="d-block h-50 w-100"
                 alt="Shoes"
               />
-            </a>
+            </Link>
           </div>
 
         </div>
@@ -204,7 +328,7 @@ function Home() {
           data-bs-target="#myslides"
           data-bs-slide="prev"
         >
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="carousel-control-prev-icon"></span>
           <span className="visually-hidden">Previous</span>
         </button>
 
@@ -214,45 +338,32 @@ function Home() {
           data-bs-target="#myslides"
           data-bs-slide="next"
         >
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="carousel-control-next-icon"></span>
           <span className="visually-hidden">Next</span>
         </button>
 
       </div>
 
-      {/* Backend Products */}
-      <div className="container mt-4">
-
-        <h2 className="text-center">Products from Backend</h2>
-
-        {loading && <p className="text-center">Loading products...</p>}
-
-        {error && <p className="text-danger text-center">{error}</p>}
-
-        {!loading && !error && products.length === 0 && (
-          <p className="text-center">No products available</p>
-        )}
-
-        <div className="row">
-          {products.map((product) => (
-            <div className="col-md-4 mb-4" key={product.productId}>
-              <div className="card h-100">
-
-                <div className="card-body">
-                  <h5 className="card-title">{product.productName}</h5>
-
-                  <p>Category: {product.category}</p>
-                  <p>Brand: {product.brand}</p>
-                  <p>Size: {product.size}</p>
-                  <p>Price: ₹{product.price}</p>
-                  <p>Stock: {product.stock}</p>
-                </div>
-
-              </div>
-            </div>
-          ))}
-        </div>
-
+      {/* Home Page Benefits */}
+      <div
+        className="home-benefits"
+        style={{
+          width: "100%",
+          marginTop: "35px",
+          marginBottom: "0",
+          overflow: "hidden",
+        }}
+      >
+        <img
+          src={getImage("home-benefits.jpg")}
+          alt="10% Cashback, 30 days Easy Returns and Free Fast Shipping"
+          style={{
+            display: "block",
+            width: "100%",
+            height: "auto",
+            objectFit: "cover",
+          }}
+        />
       </div>
 
     </div>
